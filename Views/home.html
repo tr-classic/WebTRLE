@@ -12,13 +12,15 @@
     <script src="/src/lib/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/src/lib/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/src/lib/ThreeJS/three.min.js"></script>
-    <script src="/src/lib/ThreeJS/OBJLoader.min.js"></script>
+    <script src="/src/lib/ThreeJS/controls/OrbitControls.js" charset="utf-8"></script>
+    <script src="/src/lib/ThreeJS/loaders/GLTFLoader.js" charset="utf-8"></script>
 
   </head>
   <body>
     <style>
       #three_env{
         position:fixed;
+        margin:0;
       }
 
       #log{
@@ -58,9 +60,9 @@ LOG
     </div>
     <script src="/src/scripts/noise.js" charset="utf-8"></script>
     <script src="/src/scripts/controller.js" charset="utf-8"></script>
-    <script src="/src/scripts/tr.js" type="module" charset="utf-8"></script>
-    <script src="/src/scripts/terrain.js" type="module" charset="utf-8"></script>
+    <script src="/src/scripts/tr.js" charset="utf-8"></script>
+    <script src="/src/scripts/terrain.js" charset="utf-8"></script>
 
-    <script src="/src/scripts/main.js" type="module" charset="utf-8"></script>
+    <script src="/src/scripts/main.js" charset="utf-8"></script>
   </body>
 </html>

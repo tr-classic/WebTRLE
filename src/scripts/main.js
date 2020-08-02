@@ -1,45 +1,9 @@
-import * as THREE from 'https://threejs.org/build/three.module.js';
-
-import Stats from 'https://threejs.org/examples/jsm/libs/stats.module.js';
-import {
-	GUI
-} from 'https://threejs.org/examples/jsm/libs/dat.gui.module.js';
-
-import {TR} from './tr.js' ;
-import {Terrain} from './terrain.js' ;
-import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-/*
-var cursorX = 0;
-var cursorY = 0;
-document.onmousemove = function(e){
-    cursorX = e.pageX;
-    cursorY = e.pageY - window.scrollY;
-    tr.view.position.y = (cursorY / window.innerHeight -.5  ) *4;
-    tr.view.position.x = (cursorX / window.innerWidth  -.5) *4;
-}*/
-
 function createCube(){
   var geometry = new THREE.BoxGeometry( .1, .1, .1 );
   var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
   var cube = new THREE.Mesh( geometry, material );
   return cube ;
 }
-
-window.addEventListener( 'resize', onWindowResize, false );
-
-function onWindowResize(){
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize( window.innerWidth, window.innerHeight );
-
-}
-/*
-window.addEventListener('click', function(){
-	tr.animations[0].play() ;
-  tr.getTorch() ;
-});
-//*/
 
 var scene = new THREE.Scene();
 {
@@ -88,25 +52,11 @@ if(container == null){
 	var ambilight = new THREE.AmbientLight( 0xcccccc );
 	scene.add(ambilight) ;
 
-	var controls = new OrbitControls( tr.view, renderer.domElement );
-	controls.keys = {
-		LEFT: 37, //left arrow
-		UP: 38, // up arrow
-		RIGHT: 39, // right arrow
-		BOTTOM: 40 // down arrow
-	}
-
   var terrain = new Terrain(scene) ;
-	tr.object.position.set(0,0,0) ;
-	//tr.view.position.set(0,0,0) ;
-
-	tr.view.position.set(0,1.5,-4) ;
-
-	controls.target.set(0,1.5,0) ;
-
 	tr.object.position.set(terrain.width/2,0,terrain.length/2) ;
 
-	//console.log(controls.target) ;
+	tr.view.position.set(0,1.5,-4) ;
+  tr.view.lookAt(tr.object.position.x,1.5,tr.object.position.z);
 
 
   var axesHelper = new THREE.AxesHelper( 1 );
@@ -125,5 +75,3 @@ if(container == null){
 
   animate();
 }
-
-//export {tr,createCube,moveTo,};

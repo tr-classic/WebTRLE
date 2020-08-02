@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tomb Raider Classic</title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <link rel="stylesheet" href="/src/lib/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+
+    <script src="/src/lib/JQuery-3.4.1/JQuery.min.js"></script>
+    <script src="/src/lib/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/src/lib/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="/src/lib/ThreeJS/three.min.js"></script>
+    <script src="/src/lib/ThreeJS/controls/OrbitControls.js" charset="utf-8"></script>
+    <script src="/src/lib/ThreeJS/loaders/GLTFLoader.js" charset="utf-8"></script>
+
+  </head>
+  <body>
+    <style>
+      #three_env{
+        position:fixed;
+        margin:0;
+      }
+
+      #log{
+        z-index: 10000 ;
+        position:fixed;
+        color:white ;
+      }
+
+      #loading{
+        z-index: 1000 ;
+        position:fixed ;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        background-color: #000000 ;
+        opacity:.5;
+        display:flex;
+      }
+      #loading>*{
+        margin: auto;
+        color: #FFF;
+        font-size: 20px;
+      }
+
+      *{
+        overflow: hidden;
+      }
+    </style>
+    <div id="three_env" class="">
+
+    </div>
+    <div id="loading" >
+      <p>Nous vous conseillons de bloquer la rotation de votre téléphone, et de jouer en mode paysage</p>
+    </div>
+    <div id="log" >
+LOG
+    </div>
+    <script src="/src/scripts/noise.js" charset="utf-8"></script>
+    <script src="/src/scripts/controller.js" charset="utf-8"></script>
+    <script src="/src/scripts/tr.js" charset="utf-8"></script>
+    <script src="/src/scripts/terrain.js" charset="utf-8"></script>
+
+    <script src="/src/scripts/main.js" charset="utf-8"></script>
+  </body>
+</html>

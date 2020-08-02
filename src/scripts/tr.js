@@ -1,7 +1,3 @@
-import {
-	GLTFLoader
-} from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
-
 class TR{
   constructor(scene){
     this.scene = scene ;
@@ -36,7 +32,7 @@ class TR{
     var axesHelper = new THREE.AxesHelper( 0.2 );
     obj.add( axesHelper );
 
-    var loader = new GLTFLoader();
+    var loader = new THREE.GLTFLoader();
     var model ;
     var skeleton ;
     var mixer ;
@@ -54,7 +50,6 @@ class TR{
 				if(object.name == "RHand"){
 					instance.hand = object ;
 					object.children = [] ;
-					console.log(object) ;
 				}
 
   		});
@@ -76,21 +71,16 @@ class TR{
 	  	idleAction.clampWhenFinished = true;
 			instance.animations.push(idleAction) ;
 
-			setTimeout(function(){
-				instance.getTorch() ;
-			}, 3000);
-			document.getElementById("loading").style = "display:none;"
+			document.getElementById("loading").style = "display:none;" ;
   	} ;
 
   	loader.load('/src/obj/tr.glb', fct);
   }
 
   getTorch(){
-		console.log(this.hand) ;
-
 		//*
     if(this.hand.children.length != 0){
-      console.log("vous avez deja une torche") ;
+      console.info("vous avez deja une torche") ;
       return ;
     }
 		//*/
@@ -125,8 +115,6 @@ class TR{
           clearInterval(x) ;
 
 					instance.hand.children=[];
-
-					console.log(instance.hand) ;
         }
       },50) ;
     }
@@ -134,5 +122,3 @@ class TR{
     setTimeout(_timeout, 28000);
   }
 }
-
-export {TR} ;

@@ -109,7 +109,7 @@ class Terrain{
 
     tgeometry.uvsNeedUpdate = true ;
 
-    var material = new THREE.MeshBasicMaterial( {color: 0xaaaaaa} );
+    var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
     //material.wireframe = true ;
     var terr = new THREE.Mesh( tgeometry, material );
 
@@ -123,5 +123,3 @@ class Terrain{
     terr.add( wireframe );
   }
 }
-
-export {Terrain} ;
