@@ -25,7 +25,7 @@ try{
   console.info("No accelerometer detected") ;
 }
 
-
+/*
 window.onbeforeunload = function()
 {
   var r = confirm("Are you sure you want to reload the page.");
@@ -37,25 +37,23 @@ window.onbeforeunload = function()
   {
     return "";
   }
-};
+};*/
 
 
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize(){
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    for (var cam of cameras) {
+      cam.aspect = window.innerWidth / window.innerHeight;
+      cam.updateProjectionMatrix();
 
-    renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+    }
 
 }
 
-/*
-var cursorX = 0;
-var cursorY = 0;
-document.onmousemove = function(e){
-    cursorX = e.pageX;
-    cursorY = e.pageY - window.scrollY;
-    tr.view.position.y = (cursorY / window.innerHeight -.5  ) *4;
-    tr.view.position.x = (cursorX / window.innerWidth  -.5) *4;
-}*/
+function pop_menu(element){
+  console.log("pop menu") ;
+}
+
+document.addEventListener('contextmenu', event => event.preventDefault());

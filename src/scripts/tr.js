@@ -10,8 +10,8 @@ class TR{
 
     this.object.add(this.view) ;
 
-    //this.view.lookAt(0, 1.5,0) ;
-		//this.view.position.set(0,1.5,-2) ;
+    this.view.lookAt(0, 1.5,0) ;
+  	this.view.position.set(0,1.5,-2) ;
 
     this.refresh() ;
 

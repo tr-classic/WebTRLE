@@ -14,6 +14,7 @@
     <script src="/src/lib/ThreeJS/three.min.js"></script>
     <script src="/src/lib/ThreeJS/controls/OrbitControls.js" charset="utf-8"></script>
     <script src="/src/lib/ThreeJS/loaders/GLTFLoader.js" charset="utf-8"></script>
+    <script src="/src/lib/ThreeJS/controls/TransformControls.js" charset="utf-8"></script>
 
   </head>
   <body>
@@ -24,8 +25,13 @@
       }
 
       #log{
-        z-index: 10000 ;
+        z-index: 1001 ;
         position:fixed;
+        bottom: 0;
+        left:0;
+        right:0;
+        text-align: center;
+        color:#FFF ;
       }
 
       #loading{
@@ -44,6 +50,36 @@
         color: #FFF;
         font-size: 20px;
       }
+      #menu{
+        z-index: 1000 ;
+        position:fixed ;
+        top:0;
+        bottom:0;
+        left:0;
+        overflow-y: auto;
+        scrollbar-width: thin ;
+      }
+      #menu>div{
+        width:58px ;
+      }
+      #menu>div>*{
+        width:50px;
+        height:50px;
+        background-color: #FFF ;
+      }
+      #menu img{
+        height:100%;
+      }
+
+      #mouse_dropdown{
+        min-width: 150px;
+        position: fixed;
+        z-index: 5000 ;
+        background-color: #111;
+        opacity: .9;
+        color:#FFF ;
+        visibility: hidden;
+      }
 
       *{
         overflow: hidden;
@@ -58,10 +94,19 @@
     <div id="log" >
 LOG
     </div>
+    <div id="menu">
+      <div id="menu_child">
+      </div>
+    </div>
+    <div id="mouse_dropdown">
+
+    </div>
+    <script src="/src/scripts/menu.js" charset="utf-8"></script>
     <script src="/src/scripts/noise.js" charset="utf-8"></script>
     <script src="/src/scripts/controller.js" charset="utf-8"></script>
     <script src="/src/scripts/tr.js" charset="utf-8"></script>
     <script src="/src/scripts/terrain.js" charset="utf-8"></script>
+    <!--<script src="/src/scripts/map.js" charset="utf-8"></script>-->
 
     <script src="/src/scripts/main.js" charset="utf-8"></script>
   </body>

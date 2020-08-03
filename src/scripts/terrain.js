@@ -1,13 +1,15 @@
 class Terrain{
   constructor(scene){
     this.scene = scene ;
-    this.length = 100 ;
-    this.width = 100 ;
-    this.height = 2.5 ;
+    this.length = 15 ;
+    this.width = 7 ;
+    this.height = 3 ;
+    this.unit = ["null"];
     //this.object = new BABYLON.Mesh("custom", this.scene);
     this.object = new THREE.Object3D() ;
     this.default() ;
     this.scene.add(this.object) ;
+
 
     noise.seed((Date.now()*Math.random())%100);
   }
@@ -69,15 +71,29 @@ class Terrain{
 
   square_terrain(){
     var tgeometry = new THREE.Geometry();
+    this.unit = [] ;
 
     for(let i =0 ; i<this.width ; i++){
       for(let j =0 ;j<this.length ; j++){
-        var height = 0 ;
+        var height = Math.cos(j/this.length*Math.PI*2 + (i/this.width*Math.PI*2))*.5 ;
+
+        var v1 = new THREE.Vector3(  i  , height, j   ) ;
+        var v2 = new THREE.Vector3(  i+1, height, j   ) ;
+        var v3 = new THREE.Vector3(  i  , height, j+1 ) ;
+        var v4 = new THREE.Vector3(  i+1, height, j+1 ) ;
+
         tgeometry.vertices.push(
-          new THREE.Vector3(  i  , height, j   ),
-          new THREE.Vector3(  i+1, height, j   ),
-          new THREE.Vector3(  i  , height, j+1 ),
-          new THREE.Vector3(  i+1, height, j+1 ),
+          v1,
+          v2,
+          v3,
+          v4,
+        );
+        this.unit.push([
+            v1,
+            v2,
+            v3,
+            v4,
+          ]
         );
       }
     }
@@ -85,14 +101,16 @@ class Terrain{
     for(let i =0 ; i<this.width ; i++){
       for(let j =0 ;j<this.length ; j++){
         if(j!=this.length-1 && i!=this.width-1){
-          var pos = ((j)+(i)*this.width)*4 ;
+          var pos = ((j)+(i)*this.length)*4 ;
           tgeometry.faces.push(
             new THREE.Face3( pos  ,pos+2,pos+3),
             new THREE.Face3( pos  ,pos+3,pos+1),
             new THREE.Face3( pos+2,pos+4,pos+3),
             new THREE.Face3( pos+3,pos+4,pos+5),
-            new THREE.Face3( pos+3,pos+5,((j)+(i+1)*this.width)*4),
-            new THREE.Face3( pos+3,((j)+(i+1)*this.width)*4,pos+1),
+            new THREE.Face3( pos+3,((j)+(i+1)*this.length)*4,pos+1),
+            new THREE.Face3( pos+3,((j)+(i+1)*this.length)*4+2,((j)+(i+1)*this.length)*4),
+            //new THREE.Face3( pos+3,pos+5,((j)+(i+1)*this.length)*4),
+            //new THREE.Face3( pos+3,((j)+(i+1)*this.length)*4,pos+1),
           );
         }
       }
@@ -103,13 +121,14 @@ class Terrain{
 
   default(){
     //var tgeometry = this.smooth_terrain() ;
-    var tgeometry = this.cave_terrain() ;
+    //var tgeometry = this.cave_terrain() ;
+    var tgeometry = this.square_terrain() ;
 
     tgeometry.computeBoundingSphere();
 
     tgeometry.uvsNeedUpdate = true ;
 
-    var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+    var material = new THREE.MeshBasicMaterial( {color: 0x333333} );
     //material.wireframe = true ;
     var terr = new THREE.Mesh( tgeometry, material );
 

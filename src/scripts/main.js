@@ -5,16 +5,6 @@ function createCube(){
   return cube ;
 }
 
-var scene = new THREE.Scene();
-{
-	const color = 0x000000;  // white
-  const near = 1;
-  const far = 20;
-  scene.fog = new THREE.Fog(color, near, far);
-}
-var clock = new THREE.Clock() ;
-
-
 function moveTo(object, end, time){
   var animation = 0 ;
   var beg = new THREE.Vector3(object.position.x,object.position.y,object.position.z) ;
@@ -37,12 +27,54 @@ function moveTo(object, end, time){
 }
 
 
+function init(){
+  edit.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 20 ) ;
+  edit.camera.position.set(0,0,1) ;
+  edit.camera.lookAt(0,0,0) ;
+  edit.controls = new THREE.TransformControls(edit.camera, container) ;
+  edit.orbit = new THREE.OrbitControls( edit.camera, container );
+  edit.orbit.update();
+  edit.update = function(){
+    edit.orbit.update() ;
+    edit.target_marker.position.set(edit.orbit.target.x,edit.orbit.target.y,edit.orbit.target.z) ;
+  }
+
+  edit.target_marker = new THREE.AxesHelper( 0.1 );
+
+
+  cameras.push(edit.camera) ;
+}
+
+var scene;
+var renderer ;
+var edit = {} ;
+
+var active_camera;
+var cameras =[];
+
 let container = document.getElementById( 'three_env' );
+
+var map = new Map() ;
 
 if(container == null){
   console.error("Pas d'élément nommé 'three_env' dans le html") ;
 }else{
-  var renderer = new THREE.WebGLRenderer({antialias:true});
+  var scene = new THREE.Scene();
+  {
+  	const color = 0x000000;  // white
+    const near = 1;
+    const far = 20;
+    scene.fog = new THREE.Fog(color, near, far);
+  }
+  var clock = new THREE.Clock() ;
+
+
+  init() ;
+  scene.add(edit.target_marker) ;
+
+  var active_camera = edit.camera ;
+
+  renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
 
@@ -53,11 +85,12 @@ if(container == null){
 	scene.add(ambilight) ;
 
   var terrain = new Terrain(scene) ;
-	tr.object.position.set(terrain.width/2,0,terrain.length/2) ;
+	//tr.object.position.set(terrain.width/2,0,terrain.length/2) ;
 
-	tr.view.position.set(0,1.5,-4) ;
-  tr.view.lookAt(tr.object.position.x,1.5,tr.object.position.z);
-
+  edit.camera.position.set(terrain.width/2+1,1.5,terrain.length/2+1) ;
+  edit.camera.lookAt(terrain.width/2,1,terrain.length/2) ;
+  edit.orbit.target.set(terrain.width/2,1,terrain.length/2) ;
+  edit.orbit.update();
 
   var axesHelper = new THREE.AxesHelper( 1 );
   //scene.add( axesHelper );
@@ -65,12 +98,13 @@ if(container == null){
   var animate = function () {
     requestAnimationFrame( animate );
     tr.refresh() ;
+    edit.update() ;
 
 		var mixerUpdateDelta = clock.getDelta();
 		if(tr.animations_mixer != undefined && tr.animations_mixer.length != 0)
 			tr.animations_mixer.update(mixerUpdateDelta);
 
-    renderer.render( scene, tr.view );
+    renderer.render( scene, active_camera );
   };
 
   animate();
