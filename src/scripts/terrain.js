@@ -1,8 +1,8 @@
 class Terrain{
   constructor(scene){
     this.scene = scene ;
-    this.length = 15 ;
-    this.width = 7 ;
+    this.length = 30 ;
+    this.width = 30 ;
     this.height = 3 ;
     this.unit = ["null"];
     //this.object = new BABYLON.Mesh("custom", this.scene);
@@ -128,7 +128,7 @@ class Terrain{
 
     tgeometry.uvsNeedUpdate = true ;
 
-    var material = new THREE.MeshBasicMaterial( {color: 0x333333} );
+    var material = new THREE.MeshBasicMaterial( {color: 0x111111} );
     //material.wireframe = true ;
     var terr = new THREE.Mesh( tgeometry, material );
 
@@ -137,7 +137,7 @@ class Terrain{
 
     // wireframe
     var geo = new THREE.EdgesGeometry( tgeometry ); // or WireframeGeometry
-    var mat = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
+    var mat = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 10 } );
     var wireframe = new THREE.LineSegments( geo, mat );
     terr.add( wireframe );
   }
